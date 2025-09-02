@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Kedai Gula Jawa — Pesan Online</title>
+    <meta name="description" content="Website pesanan online Kedai Gula Jawa" />
+
+    <!-- Tailwind Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              gula: {
+                50: "#FBF7F2",
+                100: "#F4EBD6",
+                200: "#EAD7B6",
+                300: "#E0C795",
+                400: "#D6B576",
+                500: "#C9A05A",
+              },
+              olive: {
+                500: "#8D996A",
+                600: "#6E7C4E",
+              },
+              darkgreen: "#24361F",
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+      .img-cover {
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body class="bg-gula-50 text-darkgreen font-sans">
+    <!-- NAVBAR -->
+    <header class="bg-white/60 backdrop-blur sticky top-0 z-40 shadow-sm">
+      <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <img src="logo_fix-removebg-preview.png" alt="Kedai Gula Jawa" class="w-20" />
+        </div>
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a href="#menu" class="hover:text-darkgreen">Menu</a>
+          <a href="#about" class="hover:text-darkgreen">Tentang</a>
+          <a href="#contact" class="hover:text-darkgreen">Kontak</a>
+          <button id="open-cart" class="bg-darkgreen text-white px-4 py-2 rounded-md">Keranjang (<span id="cart-count">0</span>)</button>
+        </nav>
+        <div class="md:hidden">
+          <button id="mobile-menu-btn" class="px-3 py-2 border rounded">Menu</button>
+        </div>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden bg-white/80">
+        <div class="px-5 py-3 flex flex-col gap-2">
+          <a href="#menu">Menu</a>
+          <a href="#about">Tentang</a>
+          <a href="#contact">Kontak</a>
+          <button id="open-cart-2" class="bg-darkgreen text-white px-4 py-2 rounded-md">Keranjang (<span id="cart-count-2">0</span>)</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO / GALLERY -->
+    <main class="max-w-6xl mx-auto px-5 py-8">
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+        <div class="md:col-span-2">
+          <div class="grid grid-cols-3 gap-2 h-64 md:h-80">
+            <img src="./photo1.jpg" class="w-full h-full img-cover rounded" />
+            <img src="./photo2.jpg" class="w-full h-full img-cover rounded" />
+            <img src="./photo3.jpg" class="w-full h-full img-cover rounded" />
+            <img src="./photo4.jpg" class="w-full h-full img-cover rounded" />
+            <img src="./photo5.jpg" class="w-full h-full img-cover rounded" />
+            <img src="./photo6.jpg" class="w-full h-full img-cover rounded" />
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded shadow-md">
+          <h1 class="text-2xl font-semibold text-darkgreen">Selamat datang di Kedai Gula Jawa</h1>
+          <p class="mt-3 text-sm text-gray-600">Nikmati menu tradisional dengan sentuhan modern.</p>
+          <div class="mt-4 flex gap-3">
+            <a href="#menu" class="px-4 py-2 rounded bg-olive-500 text-white">Lihat Menu</a>
+            <button id="hero-order" class="px-4 py-2 rounded border">Pesan Sekarang</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- FILTER DAN SEARCH -->
+      <section class="mt-10 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="flex gap-2">
+          <button class="filter-btn px-4 py-2 rounded bg-olive-500 text-white" data-filter="all">Semua</button>
+          <button class="filter-btn px-4 py-2 rounded border" data-filter="makanan">Makanan</button>
+          <button class="filter-btn px-4 py-2 rounded border" data-filter="minuman">Minuman</button>
+        </div>
+        <input type="text" id="search" placeholder="Cari menu..." class="border rounded px-3 py-2 w-full md:w-1/3" />
+      </section>
+
+      <!-- MENU -->
+      <section id="menu" class="mt-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="menu-grid">
+          <article class="card bg-white rounded-lg shadow p-4" data-id="p1" data-name="Nasi Gudeg" data-price="35000" data-type="makanan">
+            <img src="./menu1.jpg" alt="Nasi Gudeg" class="w-full h-40 rounded img-cover" />
+            <h3 class="mt-3 font-semibold">Nasi Gudeg</h3>
+            <p class="text-sm text-gray-600">Gudeg khas Jawa.</p>
+            <div class="mt-3 flex justify-between">
+              <div class="font-medium">Rp <span class="price">35.000</span></div>
+              <button class="add-to-cart bg-olive-500 text-white px-3 py-1 rounded">Tambah</button>
+            </div>
+          </article>
+
+          <article class="card bg-white rounded-lg shadow p-4" data-id="p2" data-name="Ayam Bakar" data-price="42000" data-type="makanan">
+            <img src="./menu2.jpg" alt="Ayam Bakar" class="w-full h-40 rounded img-cover" />
+            <h3 class="mt-3 font-semibold">Ayam Bakar</h3>
+            <p class="text-sm text-gray-600">Marinasi khas gula jawa.</p>
+            <div class="mt-3 flex justify-between">
+              <div class="font-medium">Rp <span class="price">42.000</span></div>
+              <button class="add-to-cart bg-olive-500 text-white px-3 py-1 rounded">Tambah</button>
+            </div>
+          </article>
+
+          <article class="card bg-white rounded-lg shadow p-4" data-id="p3" data-name="Es Kopyor" data-price="25000" data-type="minuman">
+            <img src="./menu3.jpg" alt="Es Kopyor" class="w-full h-40 rounded img-cover" />
+            <h3 class="mt-3 font-semibold">Es Kopyor</h3>
+            <p class="text-sm text-gray-600">Segar dan manis.</p>
+            <div class="mt-3 flex justify-between">
+              <div class="font-medium">Rp <span class="price">25.000</span></div>
+              <button class="add-to-cart bg-olive-500 text-white px-3 py-1 rounded">Tambah</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" class="mt-12 bg-olive-500 text-white p-6 rounded">
+        <h3 class="text-lg font-semibold">Tentang Kedai Gula Jawa</h3>
+        <p class="mt-2 text-sm">Kedai Gula Jawa menjual kreasi kuliner tradisional.</p>
+      </section>
+      <section id="contact" class="mt-8">
+        <h4 class="text-lg font-semibold">Kontak & Lokasi</h4>
+        <p class="text-sm text-gray-600">Jl. Contoh No.1, Semarang — WA: 08xx-xxxx-xxxx</p>
+      </section>
+    </main>
+
+    <!-- CART DRAWER -->
+    <div id="cart-drawer" class="fixed right-0 top-0 h-full w-full sm:w-96 bg-white shadow-lg transform translate-x-full transition-transform z-50">
+      <div class="p-4 flex justify-between border-b">
+        <h4 class="font-semibold">Keranjang</h4>
+        <div class="flex gap-2">
+          <button id="clear-cart" class="text-sm text-red-600">Kosongkan</button>
+          <button id="close-cart">✕</button>
+        </div>
+      </div>
+      <div class="p-4 overflow-y-auto h-[60vh]" id="cart-items-area">
+        <div class="text-sm text-gray-500" id="empty-msg">Keranjang masih kosong.</div>
+      </div>
+      <div class="p-4 border-t">
+        <label class="text-sm text-gray-600">Catatan</label>
+        <textarea id="note" class="w-full mt-2 border rounded p-2" rows="2"></textarea>
+        <div class="mt-4 flex justify-between">
+          <div>
+            <div class="text-xs text-gray-500">Total</div>
+            <div class="font-semibold text-lg">Rp <span id="cart-total">0</span></div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <select id="fulfill" class="border rounded px-2 py-1 text-sm">
+              <option value="takeaway">Take away</option>
+              <option value="dinein">Dine-in</option>
+              <option value="delivery">Delivery</option>
+            </select>
+            <button id="checkout" class="bg-darkgreen text-white px-4 py-2 rounded">Checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDER SUCCESS -->
+    <div id="order-success" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
+      <div class="bg-gula-100 p-6 rounded shadow max-w-md w-full text-center">
+        <h3 class="font-semibold text-darkgreen text-xl">Pesanan Berhasil</h3>
+        <p class="mt-2 text-sm text-gray-700">Pesanan Anda telah diterima.</p>
+        <div class="mt-4">
+          <button id="close-success" class="px-4 py-2 rounded bg-olive-500 text-white">Tutup</button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="mt-12 bg-darkgreen text-white p-6">
+      <div class="max-w-6xl mx-auto px-5 flex justify-between">
+        <div>
+          <div class="font-semibold">Kedai Gula Jawa</div>
+          <div class="text-xs">Rasa tradisional, suasana nyaman.</div>
+        </div>
+        <div class="text-sm">&copy; <span id="year"></span></div>
+      </div>
+    </footer>
+
+    <script>
+      const cart = {};
+      function formatRp(n) {
+        return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      }
+      function renderCart() {
+        const $area = $("#cart-items-area");
+        $area.empty();
+        const keys = Object.keys(cart);
+        if (!keys.length) {
+          $("#empty-msg").show();
+          $("#cart-total").text("0");
+          $("#cart-count,#cart-count-2").text(0);
+          return;
+        }
+        $("#empty-msg").hide();
+        let total = 0;
+        let count = 0;
+        keys.forEach((id) => {
+          const it = cart[id];
+          count += it.qty;
+          total += it.price * it.qty;
+          $area.append(
+            `<div class='flex justify-between mb-4'><div><div class='font-medium'>${it.name}</div><div class='text-xs text-gray-500'>Rp ${formatRp(
+              it.price
+            )}</div></div><div class='flex gap-2'><button class='qty-dec border rounded px-2' data-id='${id}'>-</button><span>${
+              it.qty
+            }</span><button class='qty-inc border rounded px-2' data-id='${id}'>+</button><button class='remove text-red-600 ml-2' data-id='${id}'>x</button></div></div>`
+          );
+        });
+        $("#cart-total").text(formatRp(total));
+        $("#cart-count,#cart-count-2").text(count);
+      }
+      function openCart() {
+        $("#cart-drawer").css("transform", "translateX(0)");
+      }
+      function closeCart() {
+        $("#cart-drawer").css("transform", "translateX(100%)");
+      }
+
+      $(function () {
+        $("#hero-order").on("click", () => {
+          $("html,body").animate({ scrollTop: $("#menu").offset().top - 40 }, 400);
+        });
+        $("#mobile-menu-btn").on("click", () => $("#mobile-menu").toggle());
+        $(".add-to-cart").on("click", function () {
+          const $c = $(this).closest("[data-id]");
+          const id = $c.data("id");
+          if (!cart[id]) cart[id] = { id, name: $c.data("name"), price: +$c.data("price"), qty: 0 };
+          cart[id].qty++;
+          renderCart();
+          openCart();
+        });
+        $("#open-cart,#open-cart-2").on("click", openCart);
+        $("#close-cart").on("click", closeCart);
+        $("#cart-items-area").on("click", ".qty-inc", function () {
+          cart[$(this).data("id")].qty++;
+          renderCart();
+        });
+        $("#cart-items-area").on("click", ".qty-dec", function () {
+          const id = $(this).data("id");
+          cart[id].qty--;
+          if (cart[id].qty <= 0) delete cart[id];
+          renderCart();
+        });
+        $("#cart-items-area").on("click", ".remove", function () {
+          delete cart[$(this).data("id")];
+          renderCart();
+        });
+        $("#clear-cart").on("click", () => {
+          for (const k in cart) delete cart[k];
+          renderCart();
+        });
+        $("#checkout").on("click", () => {
+          if (!Object.keys(cart).length) return alert("Keranjang kosong");
+          closeCart();
+          $("#order-success").removeClass("hidden").addClass("flex");
+        });
+        $("#close-success").on("click", () => {
+          $("#order-success").addClass("hidden").removeClass("flex");
+          for (const k in cart) delete cart[k];
+          renderCart();
+        });
+        $("#year").text(new Date().getFullYear());
+        renderCart();
+
+        // FILTER BUTTONS
+        $(".filter-btn").on("click", function () {
+          const type = $(this).data("filter");
+          $(".filter-btn").removeClass("bg-olive-500 text-white").addClass("border");
+          $(this).removeClass("border").addClass("bg-olive-500 text-white");
+          $("#menu-grid .card").each(function () {
+            const show = type === "all" || $(this).data("type") === type;
+            $(this).toggle(show);
+          });
+        });
+
+        // SEARCH FEATURE
+        $("#search").on("input", function () {
+          const val = $(this).val().toLowerCase();
+          $("#menu-grid .card").each(function () {
+            const name = $(this).data("name").toLowerCase();
+            $(this).toggle(name.includes(val));
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
